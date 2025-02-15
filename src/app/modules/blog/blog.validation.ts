@@ -15,8 +15,8 @@ const createBlogValidationSchema = z.object({
     tag: z.string({
       required_error: 'Tag is required!',
     }),
-    blogImage: z.string({ required_error: 'Blog image is required!' }),
-    author: z.string({ required_error: 'Author is required' }),
+    author: z.string({ required_error: 'Author name is required' }),
+    authorEmail: z.string({ required_error: 'Author email required' }),
   }),
 });
 const updateBlogValidationSchema = z.object({
@@ -24,8 +24,6 @@ const updateBlogValidationSchema = z.object({
     title: z.string().optional(),
     content: z.string().optional(),
     tag: z.string().optional(),
-    blogImage: z.string().optional(),
-    author: z.string().optional(),
   }),
 });
 

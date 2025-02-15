@@ -7,6 +7,7 @@ export default [
   {
     ignores: ['node_modules', 'dist'],
     rules: {
+      '@typescript-eslint/no-explicit-any': 'warn',
       'no-unused-vars': 'error',
     },
   },

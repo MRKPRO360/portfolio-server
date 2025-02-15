@@ -78,7 +78,7 @@ const deleteABlog = catchAsync(async (req: Request, res: Response) => {
   if (!result) throw new Error("This Blog doesn't exist on database 💥");
 
   sendResponse(res, {
-    statusCode: 204,
+    statusCode: 201,
     success: true,
     message: 'Blog deleted successfully!',
     data: {},

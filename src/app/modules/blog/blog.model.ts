@@ -1,5 +1,6 @@
 import { model, Schema } from 'mongoose';
 import { BlogModel, IBlog } from './blog.interface';
+import { string } from 'zod';
 
 const blogSchema = new Schema<IBlog, BlogModel>(
   {
@@ -23,9 +24,17 @@ const blogSchema = new Schema<IBlog, BlogModel>(
       type: Boolean,
       default: false,
     },
+    // author: {
+    //   type: Schema.Types.ObjectId,
+    //   ref: 'User',
+    //   required: true,
+    // },
     author: {
-      type: Schema.Types.ObjectId,
-      ref: 'User',
+      type: String,
+      required: true,
+    },
+    authorEmail: {
+      type: String,
       required: true,
     },
   },

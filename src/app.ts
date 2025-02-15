@@ -12,10 +12,14 @@ const app: Application = express();
 //SHOULD HAVE TO CHANGE THE ORIGIN WHEN PRODUCTION!
 app.use(
   cors({
-    origin: ['http://localhost:5000'],
+    origin: ['http://localhost:3000'],
     credentials: true,
   }),
 );
+
+// INCREASING BODY SIZE
+app.use(express.json({ limit: '50mb' }));
+app.use(express.urlencoded({ limit: '50mb', extended: true }));
 
 // 3rd PARTY MIDDLEWARE
 app.use(morgan('dev'));

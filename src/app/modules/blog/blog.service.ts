@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import AppError from '../../errors/AppError';
 import { JwtPayload } from 'jsonwebtoken';
 import Blog from './blog.model';
@@ -9,14 +10,14 @@ const createBlogInDB = async (
   payload: IBlog,
   userData: JwtPayload,
 ) => {
-  const user = await User.isUserExistsByEmail(userData.email);
+  const user = await User.isUserExistsByEmail(userData?.email);
 
-  if (!user) return new AppError(400, 'User does not exist');
+  // if (!user) return new AppError(400, 'User does not exist');
 
   return await Blog.create({
     ...payload,
     blogImage: file.path,
-    author: user._id,
+    author: user?._id || payload.author,
   });
 };
 
@@ -35,7 +36,7 @@ const getMyBlogFromDB = async (userData: JwtPayload) => {
 };
 
 const getAllBlogsFromDB = async () => {
-  return await Blog.find({ isDeleted: { $ne: false } });
+  return await Blog.find({ isDeleted: { $ne: true } });
 };
 
 const getSingleBlogFromDB = async (id: string) => {
