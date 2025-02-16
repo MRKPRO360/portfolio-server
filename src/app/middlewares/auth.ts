@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable no-undef */
 /* eslint-disable no-console */
 import catchAsync from '../../utils/catchAsync';
@@ -18,7 +19,7 @@ const auth = (...requiredRoles: IUserRoles[]) => {
     try {
       decoded = jwt.verify(
         token,
-        config.jwt_access_secret as string
+        config.jwt_access_secret as string,
       ) as JwtPayload;
     } catch (err: any) {
       console.log(err);

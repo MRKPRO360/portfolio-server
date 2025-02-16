@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable no-console */
 /* eslint-disable no-undef */
 import mongoose from 'mongoose';

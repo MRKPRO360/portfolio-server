@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import config from '../../config';
 import AppError from '../../errors/AppError';
 import { IUser } from '../user/user.interface';
@@ -28,7 +29,7 @@ const loginUserFromDB = async (payload: ILogin) => {
   // CHECK IF PASSWORD IS CORRECT
   const isPasswordCorrect = await User.isPasswordMatched(
     payload.password,
-    user.password
+    user.password,
   );
 
   if (!isPasswordCorrect) throw new AppError(401, 'Incorrect password!');
@@ -44,13 +45,13 @@ const loginUserFromDB = async (payload: ILogin) => {
   const accessToken = createToken(
     jwtPayload,
     config.jwt_access_secret as string,
-    config.jwt_access_expires_in as string
+    config.jwt_access_expires_in as string,
   );
 
   const refreshToken = createToken(
     jwtPayload,
     config.jwt_refresh_secret as string,
-    config.jwt_refresh_expires_in as string
+    config.jwt_refresh_expires_in as string,
   );
 
   return {
@@ -62,7 +63,7 @@ const loginUserFromDB = async (payload: ILogin) => {
 const refreshTokenFromDB = async (token: string) => {
   const decoded = jwt.verify(
     token,
-    config.jwt_refresh_secret as string
+    config.jwt_refresh_secret as string,
   ) as JwtPayload;
 
   const { email } = decoded;
@@ -82,7 +83,7 @@ const refreshTokenFromDB = async (token: string) => {
   const accessToken = createToken(
     jwtPayload,
     config.jwt_access_secret as string,
-    config.jwt_access_expires_in as string
+    config.jwt_access_expires_in as string,
   );
 
   return { accessToken };
@@ -90,7 +91,7 @@ const refreshTokenFromDB = async (token: string) => {
 
 const changePasswordInDB = async (
   userData: JwtPayload,
-  payload: { oldPassword: string; newPassword: string }
+  payload: { oldPassword: string; newPassword: string },
 ) => {
   const { email } = userData;
 
@@ -105,7 +106,7 @@ const changePasswordInDB = async (
   // CHECK IF PASSWORD IS CORRECT
   const isPasswordCorrect = await User.isPasswordMatched(
     payload.oldPassword,
-    user.password
+    user.password,
   );
 
   if (!isPasswordCorrect) throw new AppError(400, 'Incorrect password!');
@@ -116,7 +117,7 @@ const changePasswordInDB = async (
   //hash new password
   const newHashedPassword = await bcrypt.hash(
     payload.newPassword,
-    Number(config.bcrypt_salt_rounds)
+    Number(config.bcrypt_salt_rounds),
   );
 
   const result = await User.findOneAndUpdate(
@@ -127,7 +128,7 @@ const changePasswordInDB = async (
     {
       password: newHashedPassword,
       passwordChangedAt: new Date(),
-    }
+    },
   );
 
   return result;

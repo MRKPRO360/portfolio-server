@@ -1,6 +1,5 @@
 import { model, Schema } from 'mongoose';
 import { BlogModel, IBlog } from './blog.interface';
-import { string } from 'zod';
 
 const blogSchema = new Schema<IBlog, BlogModel>(
   {
