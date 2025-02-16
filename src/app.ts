@@ -12,7 +12,7 @@ const app: Application = express();
 //SHOULD HAVE TO CHANGE THE ORIGIN WHEN PRODUCTION!
 app.use(
   cors({
-    origin: ['http://localhost:3000'],
+    origin: ['https://next-portolio-client.vercel.app'],
     credentials: true,
   }),
 );
