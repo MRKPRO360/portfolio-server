@@ -8,18 +8,26 @@ import notFound from './app/middlewares/notFound';
 
 const app: Application = express();
 
+// INCREASING BODY SIZE
+app.use(express.json({ limit: '10mb' }));
+app.use(express.urlencoded({ limit: '10mb', extended: true }));
+
 // CORS
 //SHOULD HAVE TO CHANGE THE ORIGIN WHEN PRODUCTION!
 app.use(
   cors({
-    origin: ['http://localhost:3000'],
+    origin: [
+      'https://next-portolio-client.vercel.app',
+      'https://mdrezaulkarim.vercel.app',
+      'http://localhost:3000',
+    ], // No trailing slash
     credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'], // Allow all necessary methods
+    allowedHeaders: ['Content-Type', 'Authorization'], // Include necessary headers
   }),
 );
 
-// INCREASING BODY SIZE
-app.use(express.json({ limit: '50mb' }));
-app.use(express.urlencoded({ limit: '50mb', extended: true }));
+app.options('*', cors()); // Handle preflight
 
 // 3rd PARTY MIDDLEWARE
 app.use(morgan('dev'));
